@@ -62,7 +62,7 @@ export const blogContentTableColumns = [
   },
 ];
 export const blogContentFormFields = [
-  { name: "title", label: "Category Name", type: "text", required: false },
+  { name: "name", label: "Category Name", type: "text", required: false },
   // {
   //   name: "image",
   //   label: "Category Image (.jpeg .jpg .png)",
@@ -85,7 +85,7 @@ export const blogContentFormFields = [
 
   {
     name: "category",
-    label: "Caegory",
+    label: "Category",
     type: "text",
     required: false,
   },
@@ -96,7 +96,7 @@ export const blogContentFormFields = [
     required: false,
   },
   {
-    name: "name",
+    name: "authname",
     label: "Author name",
     type: "text",
     requied: false,

@@ -5,7 +5,7 @@ const API_BASE_URL = "https://gut-buddy-api.applore.in";
 // Create an Axios instance with common configuration
 let token = localStorage.getItem("token");
 // const token =
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTdiMjcxZDc5MjFiNjU5YTFhMjNjOTciLCJpYXQiOjE3MDI1Njk3NTcsImV4cCI6MTcwMzQzMzc1N30.JNhGNWooZdeiA_lA52pTiHvTKdcDy2I1biWztX5KQA0";
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTdiMjcxZDc5MjFiNjU5YTFhMjNjOTciLCJpYXQiOjE3MDI1Njk3NTcsImV4cCI6MTcwMzQzMzc1N30.JNhGNWooZdeiA_lA52pTiHvTKdcDy2I1biWztX5KQA0";
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
   timeout: 10000,
@@ -98,6 +98,7 @@ export const postFiles = async (url, data, method) => {
     const response = await fetch(`${API_BASE_URL}${url}`, {
       method: method,
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
       body: data,
