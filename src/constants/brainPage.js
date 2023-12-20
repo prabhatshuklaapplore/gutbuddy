@@ -3,7 +3,7 @@ export const brainTableColumns = [
     id: "title",
     label: "Title",
     minWidth: 70,
-    align: "left",
+    align: "center",
   },
   // {
   //   id: "image",
@@ -42,7 +42,7 @@ export const brainTableColumns = [
 ];
 
 export const brainformFields = [
-  { name: "title", label: "Category Name", type: "text", required: true },
+  { name: "title", label: "Title", type: "text", required: true },
   // {
   //   name: "image",
   //   label: "Category Image (.jpeg .jpg .png)",
@@ -54,6 +54,7 @@ export const brainformFields = [
     label: "Category",
     type: "text",
     isMultiSelect: false,
+    category:"subCategory",
     options: [
       // { label: category.title, value: 1z },
       // { label: "gut", value: 2 },
@@ -62,7 +63,7 @@ export const brainformFields = [
   },
   {
     name: "assets",
-    label: "video",
+    label: "Video",
     type: "text",
     required: true,
   },

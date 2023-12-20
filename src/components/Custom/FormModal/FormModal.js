@@ -159,7 +159,30 @@ const FormModal = ({
                         />
                       )}
                     />
-                  ) : field.isMultiSelect === false ? (
+                  ) : field.category === "category" ? (
+                    <Select
+                      label={field.label}
+                      id={field.name}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={(event) => handleChange(field.name)(event)}
+                      fullWidth
+                      error={!!errors[field.name]}
+                      helperText={errors[field.name]}
+                      disabled={field.disabled ? true : false}
+                    >
+                      {menu?.map((items) => (
+                        <MenuItem key={items.title} value={items._id}>
+                          {items.title}
+                        </MenuItem>
+                      ))}
+                      {/* {field.options.map((option) => (
+                        <MenuItem key={option.label} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))} */}
+                    </Select>
+                  ) : field.category === "subCategory" ? (
                     <Select
                       label={field.label}
                       id={field.name}

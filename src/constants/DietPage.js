@@ -44,7 +44,7 @@ export const DietTableColumns = [
 ];
 
 export const DietformFields = [
-  { name: "title", label: "Category Name", type: "text", required: false },
+  { name: "title", label: "Title", type: "text", required: true },
   // {
   //   name: "image",
   //   label: "Category Image (.jpeg .jpg .png)",
@@ -56,16 +56,17 @@ export const DietformFields = [
     label: "Category",
     type: "text",
     isMultiSelect: false,
+    category:"subCategory",
     options: [
       // { label: category.title, value: 1z },
       // { label: "gut", value: 2 },
     ],
-    required: false,
+    required: true,
   },
   {
     name: "assets",
-    label: "video",
+    label: "Video",
     type: "text",
-    required: false,
+    required: true,
   },
 ];

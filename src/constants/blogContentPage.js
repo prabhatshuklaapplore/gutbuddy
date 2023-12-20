@@ -19,13 +19,13 @@ export const blogContentTableColumns = [
   //   type: "IMAGE",
   // },
 
-  {
-    id: "category.title",
-    label: "Catgory",
-    minWidth: 70,
-    align: "center",
-    type: "text",
-  },
+  // {
+  //   id: "category.title",
+  //   label: "Catgory",
+  //   minWidth: 70,
+  //   align: "center",
+  //   type: "text",
+  // },
   {
     id: "assets",
     label: "Image",
@@ -35,7 +35,7 @@ export const blogContentTableColumns = [
   },
   {
     id: "authorName",
-    label: "Author name",
+    label: "Author Name",
     minWidth: 70,
     align: "center",
     type: "text",
@@ -70,9 +70,15 @@ export const blogContentTableColumns = [
 export const blogContentFormFields = [
   {
     name: "title",
-    label: "title",
+    label: "Title",
     type: "text",
-    required: false,
+    required: true,
+  },
+  {
+    name: "description",
+    label: "Description",
+    type: "text",
+    required: true,
   },
   // {
   //   name: "image",
@@ -88,39 +94,40 @@ export const blogContentFormFields = [
   //   type: "IMAGE",
   // },
 
+  // {
+  //   name: "category",
+  //   label: "Category",
+  //   type: "text",
+  //   isMultiSelect: false,
+  //   options: ["Diet", "Brain"],
+  //   required: false,
+  // },
   {
     name: "category",
     label: "Category",
     type: "text",
     isMultiSelect: false,
-    options: ["Diet", "Brain"],
-    required: false,
-  },
-  {
-    name: "subCategory",
-    label: "Sub Category",
-    type: "text",
-    isMultiSelect: false,
-    options: ["Diet", "Brain"],
-    required: false,
+    category: "category",
+    options: [],
+    required: true,
   },
   {
     name: "assets",
     label: "Image",
     type: "text",
-    required: false,
+    required: true,
   },
   {
     name: "authorName",
-    label: "Author name",
+    label: "Author Name",
     type: "text",
-    requied: false,
+    requied: true,
   },
   {
     name: "readTime",
     label: "Read Time",
     type: "text",
-    required: false,
+    required: true,
   },
   // {
   //   name: "createdAt",

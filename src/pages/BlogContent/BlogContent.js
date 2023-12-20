@@ -30,32 +30,30 @@ const Users = () => {
 
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
-
-  // const getCategory=async(id)=>{
-  //   await get()
-  // }
+  const [subCategory, setSubcategory] = useState();
 
   const fetchUsers = async (searchValue) => {
-    console.log(searchValue);
-    setLoading(true);
-    await get(
-      `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}`
-    )
-      .then((res) => {
-        // getCategory(res.data.category);
-        setUsers(
-          res?.data.map((item) => ({
-            ...item,
-            action: { edit: true, delete: false },
-          }))
-        );
-        setLoading(false);
-        setPageCount(res?.totalPage);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        setLoading(true);
-      });
+    try {
+      setLoading(true);
+      const res = await get(
+        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&type=BLOGS`
+      );
+      const subCategoryData = await get(
+        `/api/dashboard/apputility/getCategory`
+      );
+      setSubcategory(subCategoryData.data);
+      setUsers(
+        res?.data.map((item) => ({
+          ...item,
+          action: { edit: true, delete: false },
+        }))
+      );
+      setLoading(false);
+      setPageCount(res?.totalPage);
+    } catch (err) {
+      console.error("Error:", err);
+      setLoading(true);
+    }
   };
 
   useEffect(() => {
@@ -90,9 +88,12 @@ const Users = () => {
 
   const handleActive = async (id, active) => {
     setLoading(true);
-    let response = await put(`/api/dashboard/apputility/updateAppContent?id=${id}`, {
-      active: active,
-    });
+    let response = await put(
+      `/api/dashboard/apputility/updateAppContent?id=${id}`,
+      {
+        active: active,
+      }
+    );
     setLoading(false);
     setMessage(response.message);
     toastMessage(response.message, "success");
@@ -144,7 +145,7 @@ const Users = () => {
           ...formData,
         };
         const { ...data } = formData;
-        await post("/api/dashboard/apputility/addAppContent", { data });
+        await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
@@ -206,6 +207,7 @@ const Users = () => {
         data={deleteUser}
       />
       <FormModal
+        menu={subCategory}
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
@@ -214,7 +216,6 @@ const Users = () => {
         initialData={editData}
         isEditing={editModal}
       />
-      <img src="https://petrepublicdev.s3.amazonaws.com/public/gqfnmgqfnmGroup.svg" alt="image"/>
     </>
   );
 };
