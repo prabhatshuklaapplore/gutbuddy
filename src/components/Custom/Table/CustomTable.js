@@ -216,10 +216,6 @@ const CustomTable = ({
                           row?.vendorId?.fullName
                         ) : column.id === "addonName" ? (
                           row?.addon?.name
-                        ) : column.label === "Country" ? (
-                          row?.homeCountry?.split(",")[2]
-                        ) : column.label === "City" ? (
-                          row?.homeCountry?.split(",")[0]
                         ) : (
                           getNestedProperty(row, column.id)
                         )}

@@ -10,9 +10,9 @@ import { toastMessage } from "../../utils/toastMessage";
 import AddIcon from "@mui/icons-material/Add";
 import FormModal from "../../components/Custom/FormModal/FormModal";
 import {
-  eventCategoriesformFields,
-  eventCategoriestableColumns,
-} from "../../constants/eventCategoriesPage";
+  categoriesformFields,
+  categoriestableColumns,
+} from "../../constants/categoriesPage";
 import { useDebouncedValue } from "../../helper/debounce";
 
 const EventCategories = () => {
@@ -76,7 +76,7 @@ const EventCategories = () => {
   const handleActive = async (id, active) => {
     setLoading(true);
     let response = await put(
-      `api/dashboard/apputility/updateSubCategory?id=${id}`,
+      `/api/dashboard/appUtility/updateCategory?id=${id}`,
       {
         active: active,
       }
@@ -116,31 +116,34 @@ const EventCategories = () => {
     }
   };
 
-  const handleSubmit = async (formData, isEditing) => {
+  const handleSubmit = async (formData, isEditing, id) => {
+    setLoading(true);
     try {
-      let form = new FormData();
-      form.append("title", formData?.title);
-      form.append("asset", formData?.asset);
-      form.append("type", "BLOGS");
-
       if (isEditing) {
-        form.append("_id", editData._id);
-
-        await postFiles("api/dashboard/apputility/updateSubCategory", form, "PUT");
-
-        setMessage("Successfully updated");
-        setEditData({});
-        setEditModal(false);
+        const { ...data } = formData;
+        let response = await put(
+          `/api/dashboard/appUtility/updateCategory?id=${id}`,
+          data
+        );
+        setMessage(response.message);
+        toastMessage(response.message, "success");
       } else {
-        console.log(form);
-        await postFiles("/api/dashboard/appUtility/addCategory", form);
+        formData = {
+          ...formData,
+          type: "THERAPIES",
+        };
+        const { ...data } = formData;
+        console.log(data);
+        await post("/api/dashboard/appUtility/addCategory", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
     } catch (err) {
       console.error("Error:", err);
       setMessage("Error while processing the request");
+      toastMessage("Error while updating", "error");
     }
+    setLoading(false);
   };
 
   const handleChange = (page) => {
@@ -179,7 +182,7 @@ const EventCategories = () => {
           </div>
           <CustomTable
             data={eventCategories}
-            columns={eventCategoriestableColumns}
+            columns={categoriestableColumns}
             handleEdit={(row) => openModal("edit", row)}
             handleDelete={handleDelete}
             handleStatus={handleStatus}
@@ -201,11 +204,15 @@ const EventCategories = () => {
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
-        fields={eventCategoriesformFields}
-        header={editModal ? "Edit Sub Category" : "Add Sub Category"}
+        fields={categoriesformFields}
+        header={editModal ? "Edit Category" : "Add Category"}
         initialData={editData}
         isEditing={editModal}
       />
+      {/* <img
+        src="https://petrepublicdev.s3.amazonaws.com/public/gqfnmgqfnmGroup.svg"
+        alt="icon"
+      /> */}
     </>
   );
 };

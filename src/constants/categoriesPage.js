@@ -1,4 +1,4 @@
-export const eventCategoriestableColumns = [
+export const categoriestableColumns = [
   {
     id: "title",
     label: "Category Name",
@@ -20,6 +20,13 @@ export const eventCategoriestableColumns = [
     type: "IMAGE",
   },
   {
+    id: "type",
+    label: "Type",
+    minWidth: 70,
+    align: "center",
+    type: "text",
+  },
+  {
     id: "active",
     label: "Active",
     minWidth: 70,
@@ -33,8 +40,8 @@ export const eventCategoriestableColumns = [
   },
 ];
 
-export const eventCategoriesformFields = [
-  { name: "title", label: "Category Name", type: "text", required: false },
+export const categoriesformFields = [
+  { name: "title", label: "Category Name", type: "text", required: true },
   // {
   //   name: "image",
   //   label: "Category Image (.jpeg .jpg .png)",
@@ -45,6 +52,12 @@ export const eventCategoriesformFields = [
     name: "asset",
     label: "Category Icon (.svg)",
     type: "text",
-    required: false,
+    required: true,
+  },
+  {
+    name: "type",
+    label: "Type",
+    type: "text",
+    required: true,
   },
 ];

@@ -10,9 +10,9 @@ import { toastMessage } from "../../utils/toastMessage";
 import AddIcon from "@mui/icons-material/Add";
 import FormModal from "../../components/Custom/FormModal/FormModal";
 import {
-  eventCategoriesformFields,
-  eventCategoriestableColumns,
-} from "../../constants/eventCategoriesPage";
+  categoriesformFields,
+  categoriestableColumns,
+} from "../../constants/categoriesPage";
 import { useDebouncedValue } from "../../helper/debounce";
 
 const EventCategories = () => {
@@ -179,7 +179,7 @@ const EventCategories = () => {
           </div>
           <CustomTable
             data={eventCategories}
-            columns={eventCategoriestableColumns}
+            columns={categoriestableColumns}
             handleEdit={(row) => openModal("edit", row)}
             handleDelete={handleDelete}
             handleStatus={handleStatus}
@@ -201,7 +201,7 @@ const EventCategories = () => {
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
-        fields={eventCategoriesformFields}
+        fields={categoriesformFields}
         header={editModal ? "Edit Blog Category" : "Add Blog Category"}
         initialData={editData}
         isEditing={editModal}

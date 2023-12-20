@@ -34,13 +34,13 @@ const Users = () => {
     console.log(searchValue);
     setLoading(true);
     await get(
-      `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=`
+      `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=PATIENT`
     )
       .then((res) => {
         setUsers(
           res?.data.map((item) => ({
             ...item,
-            action: { edit: true, delete: false },
+            action: { edit: false, delete: false },
           }))
         );
         setLoading(false);
@@ -170,14 +170,14 @@ const Users = () => {
               />
             </div>
 
-            <Button
+            {/* <Button
               onClick={() => openModal("add")}
               variant="outlined"
               startIcon={<AddIcon fontSize="large" />}
               style={{ fontWeight: "bold" }}
             >
               add patient
-            </Button>
+            </Button> */}
           </div>
           <CustomTable
             data={users}

@@ -9,6 +9,7 @@ import { Autocomplete, MenuItem, Select } from "@mui/material";
 import style from "./FormModal.module.css";
 
 const FormModal = ({
+  menu,
   isOpen,
   onClose,
   onSubmit,
@@ -18,6 +19,7 @@ const FormModal = ({
   initialData,
   isEditing,
 }) => {
+  console.log(menu);
   const initialFormData = {};
   const initialErrors = {};
   fields.forEach((field) => {
@@ -169,11 +171,16 @@ const FormModal = ({
                       helperText={errors[field.name]}
                       disabled={field.disabled ? true : false}
                     >
-                      {field.options.map((option) => (
-                        <MenuItem key={option} value={option}>
-                          {option}
+                      {menu?.map((items) => (
+                        <MenuItem key={items.title} value={items.category}>
+                          {items.title}
                         </MenuItem>
                       ))}
+                      {/* {field.options.map((option) => (
+                        <MenuItem key={option.label} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))} */}
                     </Select>
                   ) : field.type === "file" ? (
                     <>

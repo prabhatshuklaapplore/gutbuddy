@@ -27,27 +27,33 @@ const Users = () => {
 
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
+  const [subCategory, setSubcategory] = useState();
+  const category = "65832911c33647bb0c1523df";
 
   const fetchUsers = async (searchValue) => {
     console.log(searchValue);
     setLoading(true);
-    await get(
-      `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&category=657b22a09fd4a246d0cd6088&subCategory=657b23220d126a94d2bba5fa`
-    )
-      .then((res) => {
-        setUsers(
-          res?.data.map((item) => ({
-            ...item,
-            action: { edit: true, delete: false },
-          }))
-        );
-        setLoading(false);
-        setPageCount(res?.totalPage);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        setLoading(true);
-      });
+
+    try {
+      const response = await get(
+        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&category=${category}`
+      );
+      const subCategoryData = await get(
+        `/api/dashboard/apputility/getSubCategory?${category}`
+      );
+      setSubcategory(subCategoryData.data);
+      setUsers(
+        response?.data.map((item) => ({
+          ...item,
+          action: { edit: true, delete: false },
+        }))
+      );
+      setLoading(false);
+      setPageCount(response?.totalPage);
+    } catch (error) {
+      console.log("Error fetching users:", error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -82,9 +88,12 @@ const Users = () => {
 
   const handleActive = async (id, active) => {
     setLoading(true);
-    let response = await put(`/api/dashboard/dashUser/updateAccount?id=${id}`, {
-      active: active,
-    });
+    let response = await put(
+      `/api/dashboard/apputility/updateAppContent?id=${id}`,
+      {
+        active: active,
+      }
+    );
     setLoading(false);
     setMessage(response.message);
     toastMessage(response.message, "success");
@@ -120,41 +129,41 @@ const Users = () => {
     }
   };
 
-  const handleSubmit = async (formData, isEditing) => {
+  const handleSubmit = async (formData, isEditing, id) => {
+    setLoading(true);
     try {
-      let form = new FormData();
-      form.append("title", formData?.title);
-      form.append("asset", formData?.asset);
-
       if (isEditing) {
-        form.append("_id", editData._id);
-
-        await postFiles(
-          "api/dashboard/apputility/updateSubCategory",
-          form,
-          "PUT"
+        const { ...data } = formData;
+        let response = await put(
+          `/api/dashboard/apputility/updateAppContent?id=${id}`,
+          data
         );
-
-        setMessage("Successfully updated");
-        setEditData({});
-        setEditModal(false);
+        setMessage(response.message);
+        toastMessage(response.message, "success");
       } else {
-        console.log(form);
-        await postFiles("/api/dashboard/appUtility/addCategory", form);
+        formData = {
+          ...formData,
+          category: "65832911c33647bb0c1523df",
+        };
+        const { ...data } = formData;
+        console.log("data", data);
+        await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
     } catch (err) {
       console.error("Error:", err);
       setMessage("Error while processing the request");
+      toastMessage("Error while updating", "error");
     }
+    setLoading(false);
   };
 
   return (
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">Brain</Typography>
+          <Typography variant="h5">Diet</Typography>
           <div
             style={{
               display: "flex",
@@ -201,6 +210,7 @@ const Users = () => {
       />
       <FormModal
         isOpen={isModalOpen || editModal}
+        menu={subCategory}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
         fields={DietformFields}
@@ -211,5 +221,4 @@ const Users = () => {
     </>
   );
 };
-
 export default Users;

@@ -53,18 +53,18 @@ export const patientTableColumns = [
     minWidth: 70,
     align: "left",
   },
-  {
-    id: "active",
-    label: "Active",
-    minWidth: 70,
-    align: "center",
-  },
-  {
-    id: "action",
-    label: "Action",
-    minWidth: 100,
-    align: "center",
-  },
+  // {
+  //   id: "active",
+  //   label: "Active",
+  //   minWidth: 70,
+  //   align: "center",
+  // },
+  // {
+  //   id: "action",
+  //   label: "Action",
+  //   minWidth: 100,
+  //   align: "center",
+  // },
 ];
 export const doctorTableColumns = [
   {
@@ -127,18 +127,18 @@ export const doctorTableColumns = [
     minWidth: 70,
     align: "left",
   },
-  {
-    id: "active",
-    label: "Active",
-    minWidth: 70,
-    align: "center",
-  },
-  {
-    id: "action",
-    label: "Action",
-    minWidth: 100,
-    align: "center",
-  },
+  // {
+  //   id: "active",
+  //   label: "Active",
+  //   minWidth: 70,
+  //   align: "center",
+  // },
+  // {
+  //   id: "action",
+  //   label: "Action",
+  //   minWidth: 100,
+  //   align: "center",
+  // },
 ];
 
 export const userFormFields = [
@@ -185,12 +185,12 @@ export const userFormFields = [
     type: "text",
     required: false,
   },
-  {
-    name: "createdAt",
-    label: "Registration Date",
-    type: "datetime-local",
-    required: false,
-  },
+  // {
+  //   name: "createdAt",
+  //   label: "Registration Date",
+  //   type: "datetime-local",
+  //   required: false,
+  // },
 ];
 
 export const DoctorFormFields = [
@@ -237,11 +237,11 @@ export const DoctorFormFields = [
     type: "text",
     required: false,
   },
-  {
-    name: "createdAt",
-    label: "Registration Date",
-    type: "datetime-local",
-    required: false,
-  },
+  // {
+  //   name: "createdAt",
+  //   label: "Registration Date",
+  //   type: "datetime-local",
+  //   required: false,
+  // },
 ];
 

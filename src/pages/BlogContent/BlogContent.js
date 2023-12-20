@@ -31,13 +31,18 @@ const Users = () => {
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
 
+  // const getCategory=async(id)=>{
+  //   await get()
+  // }
+
   const fetchUsers = async (searchValue) => {
     console.log(searchValue);
     setLoading(true);
     await get(
-      `/api/dashboard/apputility/getCategory?page=${page}&limit=${10}&search=${searchValue}&userType=`
+      `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}`
     )
       .then((res) => {
+        // getCategory(res.data.category);
         setUsers(
           res?.data.map((item) => ({
             ...item,
@@ -85,12 +90,9 @@ const Users = () => {
 
   const handleActive = async (id, active) => {
     setLoading(true);
-    let response = await put(
-      `/api/dashboard/services/updateCategory?id=${id}`,
-      {
-        active: active,
-      }
-    );
+    let response = await put(`/api/dashboard/apputility/updateAppContent?id=${id}`, {
+      active: active,
+    });
     setLoading(false);
     setMessage(response.message);
     toastMessage(response.message, "success");
@@ -126,31 +128,32 @@ const Users = () => {
     }
   };
 
-  const handleSubmit = async (formData, isEditing) => {
+  const handleSubmit = async (formData, isEditing, id) => {
+    setLoading(true);
     try {
-      let form = new FormData();
-      form.append("title", formData?.title);
-      form.append("asset", formData?.asset);
-      form.append("type", "BLOGS");
-
       if (isEditing) {
-        form.append("_id", editData._id);
-
-        await postFiles("/api/dashboard/services/updateCategory", form, "PUT");
-
-        setMessage("Successfully updated");
-        setEditData({});
-        setEditModal(false);
+        const { ...data } = formData;
+        let response = await put(
+          `/api/dashboard/apputility/updateAppContent?id=${id}`,
+          data
+        );
+        setMessage(response.message);
+        toastMessage(response.message, "success");
       } else {
-        console.log(form);
-        await postFiles("/api/dashboard/appUtility/addCategory", form);
+        formData = {
+          ...formData,
+        };
+        const { ...data } = formData;
+        await post("/api/dashboard/apputility/addAppContent", { data });
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
     } catch (err) {
       console.error("Error:", err);
       setMessage("Error while processing the request");
+      toastMessage("Error while updating", "error");
     }
+    setLoading(false);
   };
 
   return (
@@ -211,6 +214,7 @@ const Users = () => {
         initialData={editData}
         isEditing={editModal}
       />
+      <img src="https://petrepublicdev.s3.amazonaws.com/public/gqfnmgqfnmGroup.svg" alt="image"/>
     </>
   );
 };

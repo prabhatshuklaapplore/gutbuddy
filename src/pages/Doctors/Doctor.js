@@ -34,7 +34,7 @@ const Users = () => {
     console.log(searchValue);
     setLoading(true);
     await get(
-      `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=`
+      `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=DOCTOR`
     )
       .then((res) => {
         setUsers(
@@ -170,14 +170,14 @@ const Users = () => {
               />
             </div>
 
-            <Button
+            {/* <Button
               onClick={() => openModal("add")}
               variant="outlined"
               startIcon={<AddIcon fontSize="large" />}
               style={{ fontWeight: "bold" }}
             >
               add doctor
-            </Button>
+            </Button> */}
           </div>
           <CustomTable
             data={users}

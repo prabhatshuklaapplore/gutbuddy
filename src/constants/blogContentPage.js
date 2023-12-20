@@ -1,5 +1,11 @@
 export const blogContentTableColumns = [
   {
+    id: "S.No",
+    label: "id",
+    minWidth: 70,
+    align: "left",
+  },
+  {
     id: "title",
     label: "title",
     minWidth: 70,
@@ -14,28 +20,28 @@ export const blogContentTableColumns = [
   // },
 
   {
-    id: "category",
-    label: "Caegory",
+    id: "category.title",
+    label: "Catgory",
     minWidth: 70,
     align: "center",
     type: "text",
   },
   {
-    id: "asset",
+    id: "assets",
     label: "Image",
     minWidth: 70,
     align: "center",
     type: "IMAGE",
   },
   {
-    id: "name",
+    id: "authorName",
     label: "Author name",
     minWidth: 70,
     align: "center",
     type: "text",
   },
   {
-    id: "readtime",
+    id: "readTime",
     label: "Read Time",
     minWidth: 70,
     align: "center",
@@ -62,19 +68,18 @@ export const blogContentTableColumns = [
   },
 ];
 export const blogContentFormFields = [
-  { name: "name", label: "Category Name", type: "text", required: false },
-  // {
-  //   name: "image",
-  //   label: "Category Image (.jpeg .jpg .png)",
-  //   type: "file",
-  //   required: true,
-  // },
   {
     name: "title",
     label: "title",
     type: "text",
     required: false,
   },
+  // {
+  //   name: "image",
+  //   label: "Category Image (.jpeg .jpg .png)",
+  //   type: "file",
+  //   required: true,
+  // },
   // {
   //   id: "image",
   //   label: "Image",
@@ -87,30 +92,40 @@ export const blogContentFormFields = [
     name: "category",
     label: "Category",
     type: "text",
+    isMultiSelect: false,
+    options: ["Diet", "Brain"],
     required: false,
   },
   {
-    name: "asset",
+    name: "subCategory",
+    label: "Sub Category",
+    type: "text",
+    isMultiSelect: false,
+    options: ["Diet", "Brain"],
+    required: false,
+  },
+  {
+    name: "assets",
     label: "Image",
-    type: "file",
+    type: "text",
     required: false,
   },
   {
-    name: "authname",
+    name: "authorName",
     label: "Author name",
     type: "text",
     requied: false,
   },
   {
-    name: "readtime",
+    name: "readTime",
     label: "Read Time",
     type: "text",
     required: false,
   },
-  {
-    name: "createdAt",
-    label: "Publishing Date",
-    type: "date",
-    required: false,
-  },
+  // {
+  //   name: "createdAt",
+  //   label: "Publishing Date",
+  //   type: "date",
+  //   required: false,
+  // },
 ];

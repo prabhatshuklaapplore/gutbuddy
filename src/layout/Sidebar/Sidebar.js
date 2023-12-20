@@ -22,7 +22,8 @@ import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
 // import ViewCarouselIcon from "@mui/icons-material/ViewCarousel";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import logo1 from "../../assets/images/buddy_logo.png";
+// import logo1 from "../../assets/images/buddy_logo.png";
+import logo1 from "../../assets/images/logo1.png";
 import CategoryIcon from "@mui/icons-material/Category";
 import DinnerDiningIcon from "@mui/icons-material/DinnerDining";
 import PsychologyIcon from "@mui/icons-material/Psychology";
@@ -38,11 +39,11 @@ export const sidebarListArr = [
     icon: CategoryIcon,
     url: "/categories",
   },
-  {
-    label: "Sub Categories",
-    icon: BrandingWatermarkIcon,
-    url: "/Subcategories",
-  },
+  // {
+  //   label: "Sub Categories",
+  //   icon: BrandingWatermarkIcon,
+  //   url: "/Subcategories",
+  // },
   { label: "Diet", icon: DinnerDiningIcon, url: "/diet" },
   { label: "Brain", icon: PsychologyIcon, url: "/brain" },
   {
