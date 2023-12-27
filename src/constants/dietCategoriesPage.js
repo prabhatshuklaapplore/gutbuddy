@@ -1,4 +1,4 @@
-export const categoriestableColumns = [
+export const dietCategoryTableColumns = [
   {
     id: "title",
     label: "Category Name",
@@ -20,13 +20,6 @@ export const categoriestableColumns = [
     type: "IMAGE",
   },
   {
-    id: "type",
-    label: "Type",
-    minWidth: 70,
-    align: "center",
-    type: "text",
-  },
-  {
     id: "active",
     label: "Active",
     minWidth: 70,
@@ -40,7 +33,7 @@ export const categoriestableColumns = [
   },
 ];
 
-export const categoriesformFields = [
+export const dietCategoryFormFields = [
   { name: "title", label: "Category Name", type: "text", required: true },
   // {
   //   name: "image",
@@ -51,12 +44,6 @@ export const categoriesformFields = [
   {
     name: "asset",
     label: "Category Icon (.svg)",
-    type: "text",
-    required: true,
-  },
-  {
-    name: "type",
-    label: "Type",
     type: "text",
     required: true,
   },

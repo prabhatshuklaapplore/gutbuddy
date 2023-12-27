@@ -37,6 +37,7 @@ const Users = () => {
       `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=DOCTOR`
     )
       .then((res) => {
+        console.log(res);
         setUsers(
           res?.data.map((item) => ({
             ...item,
@@ -136,6 +137,7 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
+          userType: "PATIENT",
         };
         const { ...data } = formData;
         await post("/api/dashboard/dashUser/addAccount", { data });
@@ -170,14 +172,14 @@ const Users = () => {
               />
             </div>
 
-            {/* <Button
+            <Button
               onClick={() => openModal("add")}
               variant="outlined"
               startIcon={<AddIcon fontSize="large" />}
               style={{ fontWeight: "bold" }}
             >
               add doctor
-            </Button> */}
+            </Button>
           </div>
           <CustomTable
             data={users}
