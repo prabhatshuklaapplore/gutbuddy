@@ -10,12 +10,14 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
+import LiveHelpIcon from "@mui/icons-material/LiveHelp";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 // import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 // import EventIcon from "@mui/icons-material/Event";
 // import StadiumIcon from "@mui/icons-material/Stadium";
 // import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 // import PaymentIcon from "@mui/icons-material/Payment";
-import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
+// import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
 // import AddBoxIcon from "@mui/icons-material/AddBox";
 // import CategoryIcon from "@mui/icons-material/Category";
 // import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -35,9 +37,19 @@ export const sidebarListArr = [
   { label: "Patient", icon: GroupIcon, url: "/Patient" },
   { label: "Doctor", icon: GroupIcon, url: "/doctor" },
   {
-    label: "Categories",
+    label: "Diet Categories",
     icon: CategoryIcon,
-    url: "/categories",
+    url: "/dietcategories",
+  },
+  {
+    label: "Gut Categories",
+    icon: CategoryIcon,
+    url: "/gutcategories",
+  },
+  {
+    label: "Blog Categories",
+    icon: CategoryIcon,
+    url: "/blogcategories",
   },
   // {
   //   label: "Sub Categories",
@@ -51,6 +63,17 @@ export const sidebarListArr = [
     icon: RssFeedIcon,
     url: "/blogContnent",
   },
+  {
+    label: "FAQ",
+    icon: LiveHelpIcon,
+    url: "/faq",
+  },
+  {
+    label: "Reports",
+    icon: SummarizeIcon,
+    url: "/reports",
+  },
+
   // { label: "Admins", icon: AdminPanelSettingsIcon, url: "/admins" },
   // { label: "Events", icon: EventIcon, url: "/events" },
   // { label: "Venues", icon: StadiumIcon, url: "/venues" },

@@ -6,9 +6,12 @@ import Patient from "../pages/Patient/Patient";
 import Doctor from "../pages/Doctors/Doctor";
 import Diet from "../pages/Diet/Diet";
 import Brain from "../pages/Brain/Brain";
-import Categories from "../pages/Categories/Categories";
-import SubCategories from "../pages/SubCategories/SubCategories";
+import BlogCategories from "../pages/BlogCategories/BlogCategories";
 import BlogContent from "../pages/BlogContent/BlogContent";
+import FAQ from "../pages/FAQ/FAQ";
+import Reports from "../pages/Reports/Reports";
+import DietCategories from "../pages/DietCategories/DietCategories";
+import GutCategories from "../pages/GutCategories/GutCategories";
 // import Vendors from "../pages/Vendors/Vendors";
 // import Admins from "../pages/Admins/Admins";
 // import Events from "../pages/Events/Events";
@@ -106,6 +109,51 @@ const routes = [
     ),
     isPrivate: false,
   },
+  {
+    path: "/faq",
+    component: (
+      <PrivateRoute>
+        <FAQ />
+      </PrivateRoute>
+    ),
+    isPrivate: false,
+  },
+  {
+    path: "/reports",
+    component: (
+      <PrivateRoute>
+        <Reports />
+      </PrivateRoute>
+    ),
+    isPrivate: false,
+  },
+  {
+    path: "/blogcategories",
+    component: (
+      <PrivateRoute>
+        <BlogCategories />
+      </PrivateRoute>
+    ),
+    isPrivate: false,
+  },
+  {
+    path: "/dietcategories",
+    component: (
+      <PrivateRoute>
+        <DietCategories />
+      </PrivateRoute>
+    ),
+    isPrivate: false,
+  },
+  {
+    path: "/gutcategories",
+    component: (
+      <PrivateRoute>
+        <GutCategories />
+      </PrivateRoute>
+    ),
+    isPrivate: false,
+  },
   //   {
   //     path: "/vendors",
   //     component: (
@@ -169,24 +217,7 @@ const routes = [
   //     ),
   //     isPrivate: false,
   //   },
-  {
-    path: "/categories",
-    component: (
-      <PrivateRoute>
-        <Categories />
-      </PrivateRoute>
-    ),
-    isPrivate: false,
-  },
-  {
-    path: "/Subcategories",
-    component: (
-      <PrivateRoute>
-        <SubCategories />
-      </PrivateRoute>
-    ),
-    isPrivate: false,
-  },
+
   //   {
   //     path: "/venue-features",
   //     component: (

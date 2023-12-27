@@ -2,18 +2,16 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Main/Layout";
 import CustomTable from "../../components/Custom/Table/CustomTable";
-import { get, put, post } from "../../config/axios";
+import { get, put, post} from "../../config/axios";
 import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Searchbar from "../../components/Custom/SearchBar/Searchbar";
 import DeleteModal from "../../components/Custom/DeleteModal/DeleteModal";
 import { deleteAPI } from "../../helper/apiCallHelper";
-import { doctorTableColumns } from "../../constants/userPage";
 import { useDebouncedValue } from "../../helper/debounce";
 import { toastMessage } from "../../utils/toastMessage";
 import FormModal from "../../components/Custom/FormModal/FormModal";
-import { userFormFields } from "../../constants/userPage";
-
+import { faqTableColumns, faqFormFields } from "../../constants/FAQPage";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -31,26 +29,23 @@ const Users = () => {
   const [editData, setEditData] = useState({});
 
   const fetchUsers = async (searchValue) => {
-    console.log(searchValue);
-    setLoading(true);
-    await get(
-      `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=PATIENT`
-    )
-      .then((res) => {
-        console.log(res);
-        setUsers(
-          res?.data.map((item) => ({
-            ...item,
-            action: { edit: true, delete: false },
-          }))
-        );
-        setLoading(false);
-        setPageCount(res?.totalPage);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        setLoading(true);
-      });
+    try {
+      setLoading(true);
+      const res = await get(
+        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&type=FAQ`
+      );
+      setUsers(
+        res?.data.map((item) => ({
+          ...item,
+          action: { edit: true, delete: false },
+        }))
+      );
+      setLoading(false);
+      setPageCount(res?.totalPage);
+    } catch (err) {
+      console.error("Error:", err);
+      setLoading(true);
+    }
   };
 
   useEffect(() => {
@@ -72,7 +67,7 @@ const Users = () => {
   };
 
   const handleDeleteUser = async (row) => {
-    let url = `/api/app/user/updateUser?id=${row._id}`;
+    let url = `/api/dashboard/apputility/deleteAppContent?id=${row._id}`;
     let response = await deleteAPI(url);
     console.log("response", response);
     setDeleteModalOpen(false);
@@ -85,9 +80,12 @@ const Users = () => {
 
   const handleActive = async (id, active) => {
     setLoading(true);
-    let response = await put(`/api/dashboard/dashUser/updateAccount?id=${id}`, {
-      active: active,
-    });
+    let response = await put(
+      `/api/dashboard/apputility/updateAppContent?id=${id}`,
+      {
+        active: active,
+      }
+    );
     setLoading(false);
     setMessage(response.message);
     toastMessage(response.message, "success");
@@ -129,7 +127,7 @@ const Users = () => {
       if (isEditing) {
         const { ...data } = formData;
         let response = await put(
-          `/api/dashboard/dashUser/updateAccount?id=${id}`,
+          `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data
         );
         setMessage(response.message);
@@ -137,10 +135,10 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
-          userType: "PATIENT",
+          type: "FAQ",
         };
         const { ...data } = formData;
-        await post("/api/dashboard/dashUser/addAccount", { data });
+        await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
@@ -156,7 +154,7 @@ const Users = () => {
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">Patient</Typography>
+          <Typography variant="h5">FAQs</Typography>
           <div
             style={{
               display: "flex",
@@ -178,12 +176,12 @@ const Users = () => {
               startIcon={<AddIcon fontSize="large" />}
               style={{ fontWeight: "bold" }}
             >
-              add patient
+              add FAQ
             </Button>
           </div>
           <CustomTable
             data={users}
-            columns={doctorTableColumns}
+            columns={faqTableColumns}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
             handleStatus={handleStatus}
@@ -205,8 +203,8 @@ const Users = () => {
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
-        fields={userFormFields}
-        header={editModal ? "Edit Patient" : "Add Patient"}
+        fields={faqFormFields}
+        header={editModal ? "Edit FAQ" : "Add FAQ"}
         initialData={editData}
         isEditing={editModal}
       />

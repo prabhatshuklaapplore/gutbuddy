@@ -1,71 +1,67 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Main/Layout";
-import { Button, Typography } from "@mui/material";
 import CustomTable from "../../components/Custom/Table/CustomTable";
-import { get, postFiles, put, post } from "../../config/axios";
-import Searchbar from "../../components/Custom/SearchBar/Searchbar";
-import { deleteAPI, patchAPI } from "../../helper/apiCallHelper";
-import DeleteModal from "../../components/Custom/DeleteModal/DeleteModal";
-import { toastMessage } from "../../utils/toastMessage";
+import { get, put, post } from "../../config/axios";
+import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Searchbar from "../../components/Custom/SearchBar/Searchbar";
+import DeleteModal from "../../components/Custom/DeleteModal/DeleteModal";
+import { deleteAPI } from "../../helper/apiCallHelper";
+import { useDebouncedValue } from "../../helper/debounce";
+import { toastMessage } from "../../utils/toastMessage";
 import FormModal from "../../components/Custom/FormModal/FormModal";
 import {
-  categoriesformFields,
-  categoriestableColumns,
-} from "../../constants/categoriesPage";
-import { useDebouncedValue } from "../../helper/debounce";
-
-const EventCategories = () => {
-  const [eventCategories, setEventCategories] = useState([]);
+  gutCategoryTableColumns,
+  gutCategoryFormFields,
+} from "./../../constants/gutCategoriesPage";
+const Users = () => {
+  const [users, setUsers] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteUser, setDeleteUser] = useState("");
-  const [message, setMessage] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-  const [editData, setEditData] = useState({});
   const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("");
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [loading, setLoading] = useState(true);
-
   const debouncedSearch = useDebouncedValue(search, 2000);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [editData, setEditData] = useState({});
 
-  const fetchEventCategories = async (searchValue) => {
-    await get(
-      `/api/dashboard/apputility/getSubCategory?search=${searchValue}&page=${page}&limit=${20}`
-    )
-      .then((res) => {
-        console.log("res", res?.data);
-        setEventCategories(
-          res?.data.map((item) => ({
-            ...item,
-            action: { edit: true, delete: false },
-          }))
-        );
-        setPageCount(res?.totalPage);
-        setMessage(res?.message);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        setLoading(true);
-      });
+  const fetchUsers = async (searchValue) => {
+    console.log(searchValue);
+    setLoading(true);
+    try {
+      const response = await get(
+        `api/dashboard/apputility/getSubCategory?page=${page}&limit=${10}&search=${searchValue}&category=65832911c33647bb0c1523df`
+      );
+
+      setUsers(
+        response?.data.map((item) => ({
+          ...item,
+          action: { edit: true, delete: false },
+        }))
+      );
+      setLoading(false);
+      setPageCount(response?.totalPage);
+    } catch (error) {
+      console.log("Error fetching users:", error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     if (search === "") {
-      fetchEventCategories("");
+      fetchUsers("");
     } else if (debouncedSearch) {
-      fetchEventCategories(debouncedSearch);
+      fetchUsers(debouncedSearch);
     }
   }, [search, debouncedSearch, message, page]);
 
-  const handleStatus = (row) => {
-    console.log("Delete clicked for row34:", row);
-  };
-
-  const handleSearch = (searchText) => {
-    setSearch(searchText);
+  const handleEdit = (row) => {
+    // Implement the edit action for the selected row
+    openModal("edit", row);
   };
 
   const handleDelete = (row) => {
@@ -73,10 +69,22 @@ const EventCategories = () => {
     setDeleteModalOpen(true);
   };
 
+  const handleDeleteUser = async (row) => {
+    let url = `/api/app/user/updateUser?id=${row._id}`;
+    let response = await deleteAPI(url);
+    console.log("response", response);
+    setDeleteModalOpen(false);
+  };
+
+  const handleStatus = (row) => {
+    // Implement the status chnage for the selected row
+    console.log("Delete clicked for row34:", row);
+  };
+
   const handleActive = async (id, active) => {
     setLoading(true);
     let response = await put(
-      `/api/dashboard/services/updateCategory?id=${id}`,
+      `/api/dashboard/apputility/updateSubCategory?id=${id}`,
       {
         active: active,
       }
@@ -86,16 +94,16 @@ const EventCategories = () => {
     toastMessage(response.message, "success");
   };
 
-  const handleDeleteEventCategory = async (row) => {
-    let url = `/admin/access-management/event-category/${row._id}`;
-    let response = await deleteAPI(url);
-    toastMessage(response, "success");
-    setMessage(response);
-    setDeleteModalOpen(false);
+  const handleSearch = (searchText) => {
+    setSearch(searchText);
   };
 
   const handleCloseDeleteModal = () => {
     setDeleteModalOpen(false);
+  };
+
+  const handleChange = (page) => {
+    setPage(page);
   };
 
   const openModal = (type, dataForEdit) => {
@@ -116,43 +124,42 @@ const EventCategories = () => {
     }
   };
 
-  const handleSubmit = async (formData, isEditing) => {
+  const handleSubmit = async (formData, isEditing, id) => {
+    setLoading(true);
     try {
-      let form = new FormData();
-      form.append("title", formData?.title);
-      form.append("asset", formData?.asset);
-      form.append("type", "BLOGS");
-
       if (isEditing) {
-        form.append("_id", editData._id);
-
-        await postFiles("/api/dashboard/services/updateCategory", form, "PUT");
-
-        setMessage("Successfully updated");
-        setEditData({});
-        setEditModal(false);
+        const { ...data } = formData;
+        let response = await put(
+          `/api/dashboard/apputility/updateSubCategory?id=${id}`,
+          data
+        );
+        setMessage(response.message);
+        toastMessage(response.message, "success");
       } else {
-        console.log(form);
-        await postFiles("/api/dashboard/appUtility/addCategory", form);
+        formData = {
+          ...formData,
+          category: "65832911c33647bb0c1523df",
+          type:"VIDEO"
+        };
+        const { ...data } = formData;
+        console.log("data", data);
+        await post("/api/dashboard/appUtility/addSubCategory", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
     } catch (err) {
       console.error("Error:", err);
       setMessage("Error while processing the request");
+      toastMessage("Error while updating", "error");
     }
-  };
-
-  const handleChange = (page) => {
-    setPage(page);
+    setLoading(false);
   };
 
   return (
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">Sub Categories</Typography>
-
+          <Typography variant="h5">Gut Category</Typography>
           <div
             style={{
               display: "flex",
@@ -163,7 +170,7 @@ const EventCategories = () => {
             <div style={{ width: "40%" }}>
               <Searchbar
                 search={handleSearch}
-                placeholder={"Seach by category name"}
+                placeholder={"Seach by title"}
                 debounceTime={1000}
               />
             </div>
@@ -174,13 +181,13 @@ const EventCategories = () => {
               startIcon={<AddIcon fontSize="large" />}
               style={{ fontWeight: "bold" }}
             >
-              add category
+              add Gut category
             </Button>
           </div>
           <CustomTable
-            data={eventCategories}
-            columns={categoriestableColumns}
-            handleEdit={(row) => openModal("edit", row)}
+            data={users}
+            columns={gutCategoryTableColumns}
+            handleEdit={handleEdit}
             handleDelete={handleDelete}
             handleStatus={handleStatus}
             handleActive={(row, active) => handleActive(row, active)}
@@ -194,20 +201,19 @@ const EventCategories = () => {
       <DeleteModal
         open={isDeleteModalOpen}
         onClose={handleCloseDeleteModal}
-        onDelete={handleDeleteEventCategory}
+        onDelete={handleDeleteUser}
         data={deleteUser}
       />
       <FormModal
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
-        fields={categoriesformFields}
-        header={editModal ? "Edit Blog Category" : "Add Blog Category"}
+        fields={gutCategoryFormFields}
+        header={editModal ? "Edit Gut Category" : "Add Gut Category"}
         initialData={editData}
         isEditing={editModal}
       />
     </>
   );
 };
-
-export default EventCategories;
+export default Users;
