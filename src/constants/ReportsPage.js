@@ -6,24 +6,54 @@ export const reportTableColumns = [
     align: "left",
   },
   {
+    id: "uploadDate",
+    label: "Upload Date",
+    minWidth: 70,
+    align: "center",
+  },
+  {
+    id: "userName",
+    label: "User Name",
+    minWidth: 70,
+    align: "center",
+  },
+  {
+    id: "userPhone",
+    label: "User Phone",
+    minWidth: 70,
+    align: "center",
+  },
+  {
     id: "docId",
     label: "Document ID",
     minWidth: 70,
     align: "center",
   },
   {
-    id: "title",
-    label: "Test Name",
+    id: "docName",
+    label: "Document Name",
     minWidth: 70,
     align: "center",
   },
   {
-    id: "createdAt",
-    label: "Date",
+    id: "attachment",
+    label: "Attachment",
     minWidth: 70,
     align: "center",
-    type: "date",
   },
+  // {
+  //   id: "title",
+  //   label: "Test Name",
+  //   minWidth: 70,
+  //   align: "center",
+  // },
+  // {
+  //   id: "createdAt",
+  //   label: "Date",
+  //   minWidth: 70,
+  //   align: "center",
+  //   type: "date",
+  // },
 ];
 export const reportFormFields = [
   {

@@ -32,10 +32,32 @@ import PsychologyIcon from "@mui/icons-material/Psychology";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 
 export const sidebarListArr = [
-  { label: "Home", icon: HomeIcon, url: "/" },
+  // { label: "Home", icon: HomeIcon, url: "/" },
   // { label: "Vendors", icon: StorefrontIcon, url: "/vendors" },
-  { label: "Patient", icon: GroupIcon, url: "/Patient" },
-  { label: "Doctor", icon: GroupIcon, url: "/doctor" },
+  { label: "Patient List", icon: GroupIcon, url: "/Patient" },
+  { label: "Doctor List", icon: GroupIcon, url: "/doctor" },
+  // {
+  //   label: "Sub Categories",
+  //   icon: BrandingWatermarkIcon,
+  //   url: "/Subcategories",
+  // },
+  { label: "Diet Videos", icon: DinnerDiningIcon, url: "/diet" },
+  { label: "Gut Videos", icon: PsychologyIcon, url: "/brain" },
+  {
+    label: "Blog Content",
+    icon: RssFeedIcon,
+    url: "/blogContnent",
+  },
+  {
+    label: "FAQ",
+    icon: LiveHelpIcon,
+    url: "/faq",
+  },
+  {
+    label: "Test Reports",
+    icon: SummarizeIcon,
+    url: "/reports",
+  },
   {
     label: "Diet Categories",
     icon: CategoryIcon,
@@ -50,28 +72,6 @@ export const sidebarListArr = [
     label: "Blog Categories",
     icon: CategoryIcon,
     url: "/blogcategories",
-  },
-  // {
-  //   label: "Sub Categories",
-  //   icon: BrandingWatermarkIcon,
-  //   url: "/Subcategories",
-  // },
-  { label: "Diet", icon: DinnerDiningIcon, url: "/diet" },
-  { label: "Brain", icon: PsychologyIcon, url: "/brain" },
-  {
-    label: "Blog Content",
-    icon: RssFeedIcon,
-    url: "/blogContnent",
-  },
-  {
-    label: "FAQ",
-    icon: LiveHelpIcon,
-    url: "/faq",
-  },
-  {
-    label: "Reports",
-    icon: SummarizeIcon,
-    url: "/reports",
   },
 
   // { label: "Admins", icon: AdminPanelSettingsIcon, url: "/admins" },

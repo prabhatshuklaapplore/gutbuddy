@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Main/Layout";
 import CustomTable from "../../components/Custom/Table/CustomTable";
-import { get, put, post } from "../../config/axios";
+import { get, put, post, postFiles } from "../../config/axios";
 import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Searchbar from "../../components/Custom/SearchBar/Searchbar";
@@ -14,7 +14,7 @@ import FormModal from "../../components/Custom/FormModal/FormModal";
 import {
   gutCategoryTableColumns,
   gutCategoryFormFields,
-} from "./../../constants/gutCategoriesPage";
+} from "../../constants/GutCategoriesPage";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -28,13 +28,14 @@ const Users = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
+  const category = "65832911c33647bb0c1523df";
 
   const fetchUsers = async (searchValue) => {
     console.log(searchValue);
     setLoading(true);
     try {
       const response = await get(
-        `api/dashboard/apputility/getSubCategory?page=${page}&limit=${10}&search=${searchValue}&category=65832911c33647bb0c1523df`
+        `api/dashboard/apputility/getSubCategory?page=${page}&limit=${10}&search=${searchValue}&category=${category}`
       );
 
       setUsers(
@@ -128,7 +129,11 @@ const Users = () => {
     setLoading(true);
     try {
       if (isEditing) {
+        let form = new FormData();
+        form.append("file", formData?.asset);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.asset = res.data.url;
         let response = await put(
           `/api/dashboard/apputility/updateSubCategory?id=${id}`,
           data
@@ -138,11 +143,14 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
-          category: "65832911c33647bb0c1523df",
-          type:"VIDEO"
+          category: `${category}`,
+          type: "THERAPIES",
         };
+        let form = new FormData();
+        form.append("file", formData?.asset);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
-        console.log("data", data);
+        data.asset = res.data.url;
         await post("/api/dashboard/appUtility/addSubCategory", data);
         setMessage("Successfully added");
         setIsModalOpen(false);

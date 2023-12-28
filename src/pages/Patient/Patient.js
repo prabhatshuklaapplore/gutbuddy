@@ -172,14 +172,14 @@ const Users = () => {
               />
             </div>
 
-            <Button
+            {/* <Button
               onClick={() => openModal("add")}
               variant="outlined"
               startIcon={<AddIcon fontSize="large" />}
               style={{ fontWeight: "bold" }}
             >
               add patient
-            </Button>
+            </Button> */}
           </div>
           <CustomTable
             data={users}

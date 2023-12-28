@@ -1,7 +1,7 @@
 export const blogContentTableColumns = [
   {
     id: "S.No",
-    label: "id",
+    label: "S.No",
     minWidth: 70,
     align: "left",
   },
@@ -74,12 +74,6 @@ export const blogContentFormFields = [
     type: "text",
     required: true,
   },
-  {
-    name: "description",
-    label: "Description",
-    type: "text",
-    required: true,
-  },
   // {
   //   name: "image",
   //   label: "Category Image (.jpeg .jpg .png)",
@@ -114,7 +108,7 @@ export const blogContentFormFields = [
   {
     name: "assets",
     label: "Image",
-    type: "text",
+    type: "file",
     required: true,
   },
   {
@@ -126,7 +120,13 @@ export const blogContentFormFields = [
   {
     name: "readTime",
     label: "Read Time",
-    type: "text",
+    type: "number",
+    required: true,
+  },
+  {
+    name: "description",
+    label: "Description",
+    type: "description",
     required: true,
   },
   // {

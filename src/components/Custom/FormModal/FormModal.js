@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Autocomplete, MenuItem, Select } from "@mui/material";
 import style from "./FormModal.module.css";
+import { TextareaAutosize } from "@mui/base";
 
 const FormModal = ({
   menu,
@@ -205,11 +206,26 @@ const FormModal = ({
                         </MenuItem>
                       ))} */}
                     </Select>
+                  ) : field.type === "description" ? (
+                    <TextField
+                      // label={field.label}
+                      multiline
+                      rows={7}
+                      type={field.type}
+                      id={field.name}
+                      name={field.name}
+                      value={getNestedProperty(formData, fieldname)}
+                      onChange={(event) => handleChange(field.name)(event)}
+                      fullWidth
+                      error={!!errors[field.name]}
+                      helperText={errors[field.name]}
+                      disabled={field.disabled ? field.disabled : false}
+                    />
                   ) : field.type === "file" ? (
                     <>
                       <input
                         type="file"
-                        accept="image/*"
+                        // accept="image/*"
                         onChange={(event) =>
                           handleChange(field.name, field.type)(event)
                         }

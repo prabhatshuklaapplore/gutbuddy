@@ -1,7 +1,7 @@
 export const patientTableColumns = [
   {
     id: "S.No",
-    label: "id",
+    label: "S.No",
     minWidth: 70,
     align: "left",
   },
@@ -69,7 +69,7 @@ export const patientTableColumns = [
 export const doctorTableColumns = [
   {
     id: "S.No",
-    label: "id",
+    label: "S.No",
     minWidth: 70,
     align: "left",
   },
@@ -244,4 +244,3 @@ export const DoctorFormFields = [
   //   required: false,
   // },
 ];
-

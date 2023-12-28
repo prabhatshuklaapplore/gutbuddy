@@ -39,7 +39,7 @@ const Users = () => {
         `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&category=${category}`
       );
       const subCategoryData = await get(
-        `/api/dashboard/apputility/getSubCategory?${category}`
+        `/api/dashboard/apputility/getSubCategory?category=${category}`
       );
       setSubcategory(subCategoryData.data);
       setUsers(
@@ -133,7 +133,12 @@ const Users = () => {
     setLoading(true);
     try {
       if (isEditing) {
+        let form = new FormData();
+        form.append("file", formData?.assets);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.assets = res.data.url;
+        console.log(data);
         let response = await put(
           `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data
@@ -143,10 +148,16 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
-          category: "65832911c33647bb0c1523df",
+          category: `${category}`,
+          type: "THERAPIES",
         };
+        let form = new FormData();
+        form.append("file", formData?.assets);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
-        console.log("data", data);
+        data.assets = res.data.url;
+        console.log(data);
+        console.log(data);
         await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);

@@ -41,7 +41,7 @@ const routes = [
     path: "/",
     component: (
       <PrivateRoute>
-        <Home />
+        <Patient />
       </PrivateRoute>
     ),
     isPrivate: false,

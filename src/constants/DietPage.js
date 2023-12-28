@@ -56,7 +56,7 @@ export const DietformFields = [
     label: "Category",
     type: "text",
     isMultiSelect: false,
-    category:"subCategory",
+    category: "subCategory",
     options: [
       // { label: category.title, value: 1z },
       // { label: "gut", value: 2 },
@@ -66,7 +66,7 @@ export const DietformFields = [
   {
     name: "assets",
     label: "Video",
-    type: "text",
+    type: "file",
     required: true,
   },
 ];

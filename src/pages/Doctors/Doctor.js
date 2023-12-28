@@ -137,7 +137,7 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
-          userType: "PATIENT",
+          userType: "DOCTOR",
         };
         const { ...data } = formData;
         await post("/api/dashboard/dashUser/addAccount", { data });

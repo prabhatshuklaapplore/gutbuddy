@@ -28,17 +28,18 @@ const Users = () => {
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
   const [subCategory, setSubcategory] = useState();
+  const category = "657b22a09fd4a246d0cd6088";
 
   const fetchUsers = async (searchValue) => {
     console.log(searchValue);
     setLoading(true);
     try {
       const response = await get(
-        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&category=657b22a09fd4a246d0cd6088`
+        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&category=${category}`
       );
 
       const subCategoryData = await get(
-        `/api/dashboard/apputility/getSubCategory`
+        `/api/dashboard/apputility/getSubCategory?category=${category}`
       );
       setSubcategory(subCategoryData.data);
       setUsers(
@@ -132,7 +133,11 @@ const Users = () => {
     setLoading(true);
     try {
       if (isEditing) {
+        let form = new FormData();
+        form.append("file", formData?.assets);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.assets = res.data.url;
         let response = await put(
           `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data
@@ -142,10 +147,15 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
-          category: "657b22a09fd4a246d0cd6088",
+          category: `${category}`,
+          type: "THERAPIES",
         };
+        let form = new FormData();
+        form.append("file", formData?.assets);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
-        console.log("data", data);
+        data.assets = res.data.url;
+        console.log(data);
         await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);

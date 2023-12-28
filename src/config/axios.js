@@ -98,7 +98,6 @@ export const postFiles = async (url, data, method) => {
     const response = await fetch(`${API_BASE_URL}${url}`, {
       method: method,
       headers: {
-        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
       body: data,

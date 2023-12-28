@@ -44,7 +44,7 @@ export const blogCategoriesFormFields = [
   {
     name: "asset",
     label: "Category Icon (.svg)",
-    type: "text",
+    type: "file",
     required: true,
   },
 ];

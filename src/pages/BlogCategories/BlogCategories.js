@@ -27,12 +27,13 @@ const EventCategories = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [loading, setLoading] = useState(true);
+  const category = "658bd262c33647bb0c15473e";
 
   const debouncedSearch = useDebouncedValue(search, 2000);
 
   const fetchEventCategories = async (searchValue) => {
     await get(
-      `api/dashboard/apputility/getSubCategory?search=${searchValue}&page=${page}&limit=${10}&Type="BLOGS"`
+      `api/dashboard/apputility/getCategory?search=${searchValue}&page=${page}&limit=${10}&type=BLOGS`
     )
       .then((res) => {
         console.log("res", res?.data);
@@ -76,7 +77,7 @@ const EventCategories = () => {
   const handleActive = async (id, active) => {
     setLoading(true);
     let response = await put(
-      `/api/dashboard/apputility/updateSubCategory?id=${id}`,
+      `/api/dashboard/apputility/updateCategory?id=${id}`,
       {
         active: active,
       }
@@ -120,9 +121,15 @@ const EventCategories = () => {
     setLoading(true);
     try {
       if (isEditing) {
+        console.log("form", formData);
+        let form = new FormData();
+        form.append("file", formData?.asset);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.asset = res.data.url;
+        console.log(data);
         let response = await put(
-          `/api/dashboard/apputility/updateSubCategory?id=${id}`,
+          `/api/dashboard/apputility/updateCategory?id=${id}`,
           data
         );
         setMessage(response.message);
@@ -132,9 +139,14 @@ const EventCategories = () => {
           ...formData,
           type: "BLOGS",
         };
+        console.log("form", formData);
+        let form = new FormData();
+        form.append("file", formData?.asset);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.asset = res.data.url;
         console.log(data);
-        await post("/api/dashboard/appUtility/addSubCategory", data);
+        await post("/api/dashboard/appUtility/addCategory", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
@@ -209,6 +221,7 @@ const EventCategories = () => {
         initialData={editData}
         isEditing={editModal}
       />
+
       {/* <img
         src="https://petrepublicdev.s3.amazonaws.com/public/gqfnmgqfnmGroup.svg"
         alt="icon"

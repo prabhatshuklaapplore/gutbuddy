@@ -43,8 +43,8 @@ export const dietCategoryFormFields = [
   // },
   {
     name: "asset",
-    label: "Category Icon (.svg)",
-    type: "text",
+    label: "Category Icon (.svg, png, jpeg)",
+    type: "file",
     required: true,
   },
 ];

@@ -31,6 +31,7 @@ const Users = () => {
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
   const [subCategory, setSubcategory] = useState();
+  // const category = "658bd262c33647bb0c15473e";
 
   const fetchUsers = async (searchValue) => {
     try {
@@ -39,7 +40,7 @@ const Users = () => {
         `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&type=BLOGS`
       );
       const subCategoryData = await get(
-        `api/dashboard/apputility/getSubCategory`
+        `api/dashboard/apputility/getCategory?type=BLOGS`
       );
       setSubcategory(subCategoryData.data);
       setUsers(
@@ -133,7 +134,12 @@ const Users = () => {
     setLoading(true);
     try {
       if (isEditing) {
+        let form = new FormData();
+        form.append("file", formData?.assets);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.assets = res.data.url;
+        console.log("data", data);
         let response = await put(
           `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data
@@ -143,9 +149,14 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
+          // category: `${category}`,
           type: "BLOGS",
         };
+        let form = new FormData();
+        form.append("file", formData?.assets);
+        const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
+        data.assets = res.data.url;
         await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
@@ -162,7 +173,7 @@ const Users = () => {
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">BLOG</Typography>
+          <Typography variant="h5">BLOGS</Typography>
           <div
             style={{
               display: "flex",
