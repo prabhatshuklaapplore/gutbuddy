@@ -12,7 +12,7 @@ import { doctorTableColumns } from "../../constants/userPage";
 import { useDebouncedValue } from "../../helper/debounce";
 import { toastMessage } from "../../utils/toastMessage";
 import FormModal from "../../components/Custom/FormModal/FormModal";
-import { userFormFields } from "../../constants/userPage";
+import { DoctorFormFields } from "../../constants/userPage";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -138,9 +138,11 @@ const Users = () => {
         formData = {
           ...formData,
           userType: "DOCTOR",
+          password: "12345678",
         };
         const { ...data } = formData;
-        await post("/api/dashboard/dashUser/addAccount", { data });
+        console.log("data", data);
+        await post("/api/dashboard/dashUser/addAccount", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
       }
@@ -205,7 +207,7 @@ const Users = () => {
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
-        fields={userFormFields}
+        fields={DoctorFormFields}
         header={editModal ? "Edit Doctor" : "Add Doctor"}
         initialData={editData}
         isEditing={editModal}

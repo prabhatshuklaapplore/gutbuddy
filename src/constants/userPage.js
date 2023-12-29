@@ -204,8 +204,9 @@ export const DoctorFormFields = [
   {
     name: "gender",
     label: "Gender",
-    type: "text",
-    required: false,
+    type: "option",
+    options: ["MALE", "FEMALE"],
+    required: true,
   },
   {
     name: "age",
@@ -222,8 +223,9 @@ export const DoctorFormFields = [
   {
     name: "languagePreference",
     label: "Language",
-    type: "text",
-    required: false,
+    type: "option",
+    options: ["ENGLISH", "HINDI"],
+    required: true,
   },
   {
     name: "phone",
@@ -237,6 +239,12 @@ export const DoctorFormFields = [
     type: "text",
     required: false,
   },
+  // {
+  //   name: "password",
+  //   label: "Password",
+  //   type: "text",
+  //   required: false,
+  // },
   // {
   //   name: "createdAt",
   //   label: "Registration Date",

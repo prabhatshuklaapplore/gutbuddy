@@ -160,6 +160,24 @@ const FormModal = ({
                         />
                       )}
                     />
+                  ) : field.type === "option" ? (
+                    <Select
+                      label={field.label}
+                      id={field.name}
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={(event) => handleChange(field.name)(event)}
+                      fullWidth
+                      error={!!errors[field.name]}
+                      helperText={errors[field.name]}
+                      disabled={field.disabled ? true : false}
+                    >
+                      {field.options.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   ) : field.category === "category" ? (
                     <Select
                       label={field.label}
@@ -196,7 +214,7 @@ const FormModal = ({
                       disabled={field.disabled ? true : false}
                     >
                       {menu?.map((items) => (
-                        <MenuItem key={items.title} value={items.category}>
+                        <MenuItem key={items.title} value={items._id}>
                           {items.title}
                         </MenuItem>
                       ))}
