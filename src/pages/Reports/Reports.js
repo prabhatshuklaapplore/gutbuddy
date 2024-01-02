@@ -35,7 +35,7 @@ const Users = () => {
     try {
       setLoading(true);
       const res = await get(
-        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&type=REPORTS`
+        `/api/dashboard/appFeatures/getReports?page=${page}&limit=${10}&search=${searchValue}`
       );
       setUsers(
         res?.data.map((item) => ({

@@ -7,13 +7,13 @@ export const faqTableColumns = [
   },
   {
     id: "title",
-    label: "question",
+    label: "Question",
     minWidth: 70,
     align: "left",
   },
   {
     id: "description",
-    label: "answer",
+    label: "Answer",
     minWidth: 70,
     align: "left",
   },

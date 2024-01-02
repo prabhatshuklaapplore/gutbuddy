@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Autocomplete, MenuItem, Select } from "@mui/material";
 import style from "./FormModal.module.css";
-import { TextareaAutosize } from "@mui/base";
 
 const FormModal = ({
   menu,

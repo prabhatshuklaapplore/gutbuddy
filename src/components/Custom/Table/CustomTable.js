@@ -9,9 +9,11 @@ import style from "./CustomTable.module.css";
 import React from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DownloadIcon from "@mui/icons-material/Download";
 import { CircularProgress, Grid, Pagination, Switch } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const CustomTable = ({
   data,
@@ -27,6 +29,7 @@ const CustomTable = ({
   pageCount,
   loading,
 }) => {
+  console.log(data);
   const handlePageChangePagination = (event, value) => {
     handlePageChange(value);
   };
@@ -159,6 +162,17 @@ const CustomTable = ({
                               );
                             }}
                           />
+                        ) : column.label === "Attachment" ? (
+                          <Link to={row.document}>
+                            <DownloadIcon
+                              style={{
+                                fontSize: "24px",
+                                borderRadius: "3px",
+                                cursor: "pointer",
+                                color: "#111",
+                              }}
+                            />
+                          </Link>
                         ) : column.label === "Details" ? (
                           <div
                             onClick={() => {

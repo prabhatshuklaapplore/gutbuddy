@@ -6,7 +6,7 @@ export const reportTableColumns = [
     align: "left",
   },
   {
-    id: "uploadDate",
+    id: "createdAt",
     label: "Upload Date",
     minWidth: 70,
     align: "center",
@@ -24,19 +24,25 @@ export const reportTableColumns = [
     align: "center",
   },
   {
-    id: "docId",
+    id: "_id",
     label: "Document ID",
     minWidth: 70,
     align: "center",
   },
   {
-    id: "docName",
+    id: "name",
     label: "Document Name",
     minWidth: 70,
     align: "center",
   },
   {
-    id: "attachment",
+    id: "labName",
+    label: "Lab Name",
+    minWidth: 70,
+    align: "center",
+  },
+  {
+    id: "document",
     label: "Attachment",
     minWidth: 70,
     align: "center",
