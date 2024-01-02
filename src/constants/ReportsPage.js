@@ -12,13 +12,13 @@ export const reportTableColumns = [
     align: "center",
   },
   {
-    id: "userName",
+    id: "user.fullname",
     label: "User Name",
     minWidth: 70,
     align: "center",
   },
   {
-    id: "userPhone",
+    id: "user.phone",
     label: "User Phone",
     minWidth: 70,
     align: "center",
