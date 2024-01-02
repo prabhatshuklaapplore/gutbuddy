@@ -174,7 +174,7 @@ const Users = () => {
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">Diet</Typography>
+          <Typography variant="h5">Gut videos</Typography>
           <div
             style={{
               display: "flex",

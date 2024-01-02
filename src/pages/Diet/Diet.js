@@ -138,6 +138,7 @@ const Users = () => {
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.assets = res.data.url;
+        console.log("data", data);
         let response = await put(
           `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data
@@ -155,7 +156,7 @@ const Users = () => {
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.assets = res.data.url;
-        console.log(data);
+        console.log("data", data);
         await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
@@ -172,7 +173,7 @@ const Users = () => {
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">Diet</Typography>
+          <Typography variant="h5">Diet videos</Typography>
           <div
             style={{
               display: "flex",

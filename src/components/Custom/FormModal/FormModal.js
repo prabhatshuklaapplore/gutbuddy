@@ -70,7 +70,7 @@ const FormModal = ({
 
   const handleSubmit = () => {
     if (validateFormData()) {
-      console.log(formData);
+      // console.log(formData);
       onSubmit(formData, isEditing, initialData._id);
       onClose();
     }

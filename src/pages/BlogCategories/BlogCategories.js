@@ -4,7 +4,7 @@ import { Button, Typography } from "@mui/material";
 import CustomTable from "../../components/Custom/Table/CustomTable";
 import { get, postFiles, put, post } from "../../config/axios";
 import Searchbar from "../../components/Custom/SearchBar/Searchbar";
-import { deleteAPI, patchAPI } from "../../helper/apiCallHelper";
+import { deleteAPI } from "../../helper/apiCallHelper";
 import DeleteModal from "../../components/Custom/DeleteModal/DeleteModal";
 import { toastMessage } from "../../utils/toastMessage";
 import AddIcon from "@mui/icons-material/Add";
@@ -27,7 +27,6 @@ const EventCategories = () => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [loading, setLoading] = useState(true);
-  const category = "658bd262c33647bb0c15473e";
 
   const debouncedSearch = useDebouncedValue(search, 2000);
 

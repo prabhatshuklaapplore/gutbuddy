@@ -128,6 +128,7 @@ const Users = () => {
     try {
       if (isEditing) {
         const { ...data } = formData;
+        console.log("patient", data);
         let response = await put(
           `/api/dashboard/dashUser/updateAccount?id=${id}`,
           data
