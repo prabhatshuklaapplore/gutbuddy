@@ -31,13 +31,11 @@ const Users = () => {
   const [editData, setEditData] = useState({});
 
   const fetchUsers = async (searchValue) => {
-    console.log(searchValue);
     setLoading(true);
     await get(
       `/api/dashboard/dashUser/getAllAppUsers?page=${page}&limit=${10}&search=${searchValue}&userType=PATIENT`
     )
       .then((res) => {
-        console.log(res);
         setUsers(
           res?.data.map((item) => ({
             ...item,
@@ -85,7 +83,7 @@ const Users = () => {
 
   const handleActive = async (id, active) => {
     setLoading(true);
-    let response = await put(`/api/dashboard/dashUser/updateAccount?id=${id}`, {
+    let response = await put(`/api/dashboard/dashUser/updateAppAccount?id=${id}`, {
       active: active,
     });
     setLoading(false);
@@ -128,9 +126,8 @@ const Users = () => {
     try {
       if (isEditing) {
         const { ...data } = formData;
-        console.log("patient", data);
         let response = await put(
-          `/api/dashboard/dashUser/updateAccount?id=${id}`,
+          `/api/dashboard/dashUser/updateAppAccount?id=${id}`,
           data
         );
         setMessage(response.message);

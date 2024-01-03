@@ -14,6 +14,7 @@ import { CircularProgress, Grid, Pagination, Switch } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
 
 const CustomTable = ({
   data,
@@ -29,7 +30,6 @@ const CustomTable = ({
   pageCount,
   loading,
 }) => {
-  console.log(data);
   const handlePageChangePagination = (event, value) => {
     handlePageChange(value);
   };
@@ -102,14 +102,16 @@ const CustomTable = ({
                                     handleEdit(row);
                                   }}
                                 >
-                                  <EditIcon
-                                    style={{
-                                      fontSize: "24px",
-                                      borderRadius: "3px",
-                                      cursor: "pointer",
-                                      color: "green",
-                                    }}
-                                  />
+                                  <IconButton>
+                                    <EditIcon
+                                      style={{
+                                        fontSize: "24px",
+                                        borderRadius: "3px",
+                                        cursor: "pointer",
+                                        color: "green",
+                                      }}
+                                    />
+                                  </IconButton>
                                 </div>
                               )}
                               {row?.action?.delete && (
@@ -119,14 +121,16 @@ const CustomTable = ({
                                     handleDelete(row);
                                   }}
                                 >
-                                  <DeleteIcon
-                                    style={{
-                                      fontSize: "24px",
-                                      borderRadius: "3px",
-                                      cursor: "pointer",
-                                      color: "red",
-                                    }}
-                                  />
+                                  <IconButton>
+                                    <DeleteIcon
+                                      style={{
+                                        fontSize: "24px",
+                                        borderRadius: "3px",
+                                        cursor: "pointer",
+                                        color: "red",
+                                      }}
+                                    />
+                                  </IconButton>
                                 </div>
                               )}
                             </div>
@@ -164,14 +168,16 @@ const CustomTable = ({
                           />
                         ) : column.label === "Attachment" ? (
                           <Link to={row.document}>
-                            <DownloadIcon
-                              style={{
-                                fontSize: "24px",
-                                borderRadius: "3px",
-                                cursor: "pointer",
-                                color: "#111",
-                              }}
-                            />
+                            <IconButton>
+                              <DownloadIcon
+                                style={{
+                                  fontSize: "24px",
+                                  borderRadius: "3px",
+                                  cursor: "pointer",
+                                  color: "#111",
+                                }}
+                              />
+                            </IconButton>
                           </Link>
                         ) : column.label === "Details" ? (
                           <div

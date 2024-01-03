@@ -139,7 +139,6 @@ const Users = () => {
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.assets = res.data.url;
-        console.log("data", data);
         let response = await put(
           `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data

@@ -35,7 +35,6 @@ const EventCategories = () => {
       `api/dashboard/apputility/getCategory?search=${searchValue}&page=${page}&limit=${10}&type=BLOGS`
     )
       .then((res) => {
-        console.log("res", res?.data);
         setEventCategories(
           res?.data.map((item) => ({
             ...item,
@@ -120,13 +119,11 @@ const EventCategories = () => {
     setLoading(true);
     try {
       if (isEditing) {
-        console.log("form", formData);
         let form = new FormData();
         form.append("file", formData?.asset);
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.asset = res.data.url;
-        console.log(data);
         let response = await put(
           `/api/dashboard/apputility/updateCategory?id=${id}`,
           data
@@ -138,13 +135,11 @@ const EventCategories = () => {
           ...formData,
           type: "BLOGS",
         };
-        console.log("form", formData);
         let form = new FormData();
         form.append("file", formData?.asset);
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.asset = res.data.url;
-        console.log(data);
         await post("/api/dashboard/appUtility/addCategory", data);
         setMessage("Successfully added");
         setIsModalOpen(false);

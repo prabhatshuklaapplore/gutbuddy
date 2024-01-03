@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Main/Layout";
 import CustomTable from "../../components/Custom/Table/CustomTable";
-import { get, put, post} from "../../config/axios";
+import { get, put, post } from "../../config/axios";
 import { Button, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Searchbar from "../../components/Custom/SearchBar/Searchbar";
@@ -27,12 +27,13 @@ const Users = () => {
 
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
+  const category = "6594f595afa5f6ef86f9003f";
 
   const fetchUsers = async (searchValue) => {
     try {
       setLoading(true);
       const res = await get(
-        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&type=FAQ`
+        `/api/dashboard/apputility/getAppContent?page=${page}&limit=${10}&search=${searchValue}&category=${category}`
       );
       setUsers(
         res?.data.map((item) => ({
@@ -135,7 +136,9 @@ const Users = () => {
       } else {
         formData = {
           ...formData,
+          category: `${category}`,
           type: "FAQ",
+          assets: [],
         };
         const { ...data } = formData;
         await post("/api/dashboard/apputility/addAppContent", data);

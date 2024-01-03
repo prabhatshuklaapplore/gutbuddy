@@ -30,7 +30,6 @@ const Users = () => {
   const [editData, setEditData] = useState({});
   const category = "657b22a09fd4a246d0cd6088";
   const fetchUsers = async (searchValue) => {
-    console.log(searchValue);
     setLoading(true);
     try {
       const response = await get(

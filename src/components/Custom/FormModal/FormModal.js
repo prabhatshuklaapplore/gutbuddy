@@ -19,7 +19,6 @@ const FormModal = ({
   initialData,
   isEditing,
 }) => {
-  console.log(menu);
   const initialFormData = {};
   const initialErrors = {};
   fields.forEach((field) => {
@@ -70,7 +69,6 @@ const FormModal = ({
 
   const handleSubmit = () => {
     if (validateFormData()) {
-      // console.log(formData);
       onSubmit(formData, isEditing, initialData._id);
       onClose();
     }

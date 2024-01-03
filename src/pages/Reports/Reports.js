@@ -17,19 +17,13 @@ import {
 } from "../../constants/ReportsPage";
 const Users = () => {
   const [users, setUsers] = useState([]);
-  // const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  // const [deleteUser, setDeleteUser] = useState("");
+
   const [search, setSearch] = useState("");
   const [message, setMessage] = useState("");
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
   const [loading, setLoading] = useState(true);
   const debouncedSearch = useDebouncedValue(search, 2000);
-
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const [editModal, setEditModal] = useState(false);
-  // const [editData, setEditData] = useState({});
 
   const fetchUsers = async (searchValue) => {
     try {
@@ -59,105 +53,19 @@ const Users = () => {
     }
   }, [search, debouncedSearch, message, page]);
 
-  // const handleEdit = (row) => {
-  //   // Implement the edit action for the selected row
-  //   openModal("edit", row);
-  // };
-
-  // const handleDelete = (row) => {
-  //   setDeleteUser(row);
-  //   setDeleteModalOpen(true);
-  // };
-
-  // const handleDeleteUser = async (row) => {
-  //   let url = `/api/dashboard/apputility/deleteAppContent?id=${row._id}`;
-  //   let response = await deleteAPI(url);
-  //   console.log("response", response);
-  //   setDeleteModalOpen(false);
-  // };
-
-  // const handleStatus = (row) => {
-  //   // Implement the status chnage for the selected row
-  //   console.log("Delete clicked for row34:", row);
-  // };
-
-  const handleActive = async (id, active) => {
-    setLoading(true);
-    let response = await put(
-      `/api/dashboard/apputility/updateAppContent?id=${id}`,
-      {
-        active: active,
-      }
-    );
-    setLoading(false);
-    setMessage(response.message);
-    toastMessage(response.message, "success");
-  };
-
   const handleSearch = (searchText) => {
     setSearch(searchText);
   };
-
-  // const handleCloseDeleteModal = () => {
-  //   setDeleteModalOpen(false);
-  // };
 
   const handleChange = (page) => {
     setPage(page);
   };
 
-  // const openModal = (type, dataForEdit) => {
-  //   if (type === "add") {
-  //     setIsModalOpen(true);
-  //   } else if (type === "edit") {
-  //     setEditModal(true);
-  //     setEditData(dataForEdit);
-  //   }
-  // };
-
-  // const closeModal = (type) => {
-  //   if (type === "add") {
-  //     setIsModalOpen(false);
-  //   } else if (type === "edit") {
-  //     setEditModal(false);
-  //     setEditData({});
-  //   }
-  // };
-
-  // const handleSubmit = async (formData, isEditing, id) => {
-  //   setLoading(true);
-  //   try {
-  //     if (isEditing) {
-  //       const { ...data } = formData;
-  //       let response = await put(
-  //         `/api/dashboard/apputility/updateAppContent?id=${id}`,
-  //         data
-  //       );
-  //       setMessage(response.message);
-  //       toastMessage(response.message, "success");
-  //     } else {
-  //       formData = {
-  //         ...formData,
-  //         type: "FAQ",
-  //       };
-  //       const { ...data } = formData;
-  //       await post("/api/dashboard/apputility/addAppContent", data);
-  //       setMessage("Successfully added");
-  //       setIsModalOpen(false);
-  //     }
-  //   } catch (err) {
-  //     console.error("Error:", err);
-  //     setMessage("Error while processing the request");
-  //     toastMessage("Error while updating", "error");
-  //   }
-  //   setLoading(false);
-  // };
-
   return (
     <>
       <Layout>
         <div style={{ padding: "1rem" }}>
-          <Typography variant="h5">Reports</Typography>
+          <Typography variant="h5">Test Reports</Typography>
           <div
             style={{
               display: "flex",
@@ -172,22 +80,10 @@ const Users = () => {
                 debounceTime={1000}
               />
             </div>
-
-            {/* <Button
-              onClick={() => openModal("add")}
-              variant="outlined"
-              startIcon={<AddIcon fontSize="large" />}
-              style={{ fontWeight: "bold" }}
-            >
-              add FAQ
-            </Button> */}
           </div>
           <CustomTable
             data={users}
             columns={reportTableColumns}
-            // handleDelete={handleDelete}
-            // handleStatus={handleStatus}
-            // handleActive={(row, active) => handleActive(row, active)}
             handlePageChange={(page) => handleChange(page)}
             pageNumber={page}
             pageCount={pageCount}
@@ -195,21 +91,6 @@ const Users = () => {
           />
         </div>
       </Layout>
-      {/* <DeleteModal
-        open={isDeleteModalOpen}
-        onClose={handleCloseDeleteModal}
-        onDelete={handleDeleteUser}
-        data={deleteUser}
-      /> */}
-      {/* <FormModal
-        isOpen={isModalOpen || editModal}
-        onClose={() => closeModal(editModal ? "edit" : "add")}
-        onSubmit={handleSubmit}
-        fields={reportFormFields}
-        header={editModal ? "Edit Report" : "Add Report"}
-        initialData={editData}
-        isEditing={editModal}
-      /> */}
     </>
   );
 };

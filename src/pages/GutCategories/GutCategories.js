@@ -31,7 +31,6 @@ const Users = () => {
   const category = "65832911c33647bb0c1523df";
 
   const fetchUsers = async (searchValue) => {
-    console.log(searchValue);
     setLoading(true);
     try {
       const response = await get(

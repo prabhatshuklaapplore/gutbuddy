@@ -31,7 +31,6 @@ const Users = () => {
   const category = "65832911c33647bb0c1523df";
 
   const fetchUsers = async (searchValue) => {
-    console.log(searchValue);
     setLoading(true);
 
     try {
@@ -138,7 +137,6 @@ const Users = () => {
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.assets = res.data.url;
-        console.log(data);
         let response = await put(
           `/api/dashboard/apputility/updateAppContent?id=${id}`,
           data
@@ -156,8 +154,7 @@ const Users = () => {
         const res = await postFiles("/api/app/user/uploadImage", form);
         const { ...data } = formData;
         data.assets = res.data.url;
-        console.log(data);
-        console.log(data);
+
         await post("/api/dashboard/apputility/addAppContent", data);
         setMessage("Successfully added");
         setIsModalOpen(false);
