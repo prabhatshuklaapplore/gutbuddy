@@ -212,6 +212,7 @@ const Users = () => {
         data={deleteUser}
       />
       <FormModal
+        accept="image/*"
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}

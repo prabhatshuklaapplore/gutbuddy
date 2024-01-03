@@ -9,6 +9,7 @@ import { Autocomplete, MenuItem, Select } from "@mui/material";
 import style from "./FormModal.module.css";
 
 const FormModal = ({
+  accept,
   menu,
   isOpen,
   onClose,
@@ -240,7 +241,7 @@ const FormModal = ({
                     <>
                       <input
                         type="file"
-                        // accept="image/*"
+                        accept={accept}
                         onChange={(event) =>
                           handleChange(field.name, field.type)(event)
                         }

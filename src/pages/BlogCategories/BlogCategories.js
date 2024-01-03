@@ -207,6 +207,7 @@ const EventCategories = () => {
         data={deleteUser}
       />
       <FormModal
+        accept="image/*"
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
@@ -215,11 +216,6 @@ const EventCategories = () => {
         initialData={editData}
         isEditing={editModal}
       />
-
-      {/* <img
-        src="https://petrepublicdev.s3.amazonaws.com/public/gqfnmgqfnmGroup.svg"
-        alt="icon"
-      /> */}
     </>
   );
 };

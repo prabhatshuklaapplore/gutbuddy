@@ -216,6 +216,7 @@ const Users = () => {
         data={deleteUser}
       />
       <FormModal
+        accept="video/*"
         isOpen={isModalOpen || editModal}
         menu={subCategory}
         onClose={() => closeModal(editModal ? "edit" : "add")}

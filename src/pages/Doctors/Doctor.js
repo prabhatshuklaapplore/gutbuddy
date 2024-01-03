@@ -83,9 +83,12 @@ const Users = () => {
 
   const handleActive = async (id, active) => {
     setLoading(true);
-    let response = await put(`/api/dashboard/dashUser/updateAppAccount?id=${id}`, {
-      active: active,
-    });
+    let response = await put(
+      `/api/dashboard/dashUser/updateAppAccount?id=${id}`,
+      {
+        active: active,
+      }
+    );
     setLoading(false);
     setMessage(response.message);
     toastMessage(response.message, "success");
@@ -139,6 +142,7 @@ const Users = () => {
           password: "12345678",
         };
         const { ...data } = formData;
+        console.log(data);
         await post("/api/dashboard/dashUser/addAccount", data);
         setMessage("Successfully added");
         setIsModalOpen(false);

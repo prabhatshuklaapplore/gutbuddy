@@ -11,7 +11,7 @@ import { deleteAPI } from "../../helper/apiCallHelper";
 import { useDebouncedValue } from "../../helper/debounce";
 import { toastMessage } from "../../utils/toastMessage";
 import FormModal from "../../components/Custom/FormModal/FormModal";
-import { DietTableColumns, DietformFields } from "../../constants/DietPage";
+import { brainTableColumns, brainformFields } from "../../constants/brainPage";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -198,7 +198,7 @@ const Users = () => {
           </div>
           <CustomTable
             data={users}
-            columns={DietTableColumns}
+            columns={brainTableColumns}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
             handleStatus={handleStatus}
@@ -217,11 +217,12 @@ const Users = () => {
         data={deleteUser}
       />
       <FormModal
+        accept="video/*"
         isOpen={isModalOpen || editModal}
         menu={subCategory}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
-        fields={DietformFields}
+        fields={brainformFields}
         header={editModal ? "Edit Video" : "Add Video"}
         initialData={editData}
         isEditing={editModal}

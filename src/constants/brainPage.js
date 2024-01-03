@@ -25,7 +25,7 @@ export const brainTableColumns = [
     label: "Video",
     minWidth: 70,
     align: "center",
-    type: "IMAGE",
+    type: "VIDEO",
   },
   {
     id: "active",

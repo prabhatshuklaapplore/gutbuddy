@@ -211,6 +211,7 @@ const Users = () => {
         data={deleteUser}
       />
       <FormModal
+        accept="image/*"
         isOpen={isModalOpen || editModal}
         onClose={() => closeModal(editModal ? "edit" : "add")}
         onSubmit={handleSubmit}
@@ -219,10 +220,6 @@ const Users = () => {
         initialData={editData}
         isEditing={editModal}
       />
-      {/* <img
-        src="https://simpleicon.com/wp-content/uploads/rocket.svg"
-        alt="svg"
-      ></img> */}
     </>
   );
 };

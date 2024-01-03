@@ -145,6 +145,16 @@ const CustomTable = ({
                               style={{ width: "150px", height: "100px" }}
                             />
                           </>
+                        ) : column.type === "VIDEO" ? (
+                          <>
+                            <video width="150px" height="100px" controls>
+                              <source
+                                src="https://petrepublicdev.s3.ap-south-1.amazonaws.com/public/lddeylddeyvideoplayback-%28online-video-cutter.com%29-%281%29.mp4"
+                                type="video/mp4"
+                              />
+                              VIDEO
+                            </video>
+                          </>
                         ) : column.label === "Active" ? (
                           <Switch
                             checked={row[column.id]}
