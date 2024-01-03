@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Main/Layout";
 import CustomTable from "../../components/Custom/Table/CustomTable";
 import { get, put, post, postFiles } from "../../config/axios";
-import { Button, Typography } from "@mui/material";
+import { Button, Box, Modal, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Searchbar from "../../components/Custom/SearchBar/Searchbar";
 import DeleteModal from "../../components/Custom/DeleteModal/DeleteModal";
@@ -15,6 +15,8 @@ import {
   blogContentTableColumns,
   blogContentFormFields,
 } from "../../constants/blogContentPage";
+import styles from "./BlogContent.module.css";
+
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -31,7 +33,9 @@ const Users = () => {
   const [editModal, setEditModal] = useState(false);
   const [editData, setEditData] = useState({});
   const [subCategory, setSubcategory] = useState();
-  // const category = "658bd262c33647bb0c15473e";
+  ///
+  const [viewModal, setViewModal] = useState(false);
+  const [viewData, setViewData] = useState({});
 
   const fetchUsers = async (searchValue) => {
     try {
@@ -130,6 +134,13 @@ const Users = () => {
     }
   };
 
+  const handleDisplay = (row) => {
+    // Implement the edit action for the selected row
+    console.log("Display", row);
+    setViewData(row);
+    setViewModal(true);
+  };
+
   const handleSubmit = async (formData, isEditing, id) => {
     setLoading(true);
     try {
@@ -203,6 +214,7 @@ const Users = () => {
             handleEdit={handleEdit}
             handleDelete={handleDelete}
             handleStatus={handleStatus}
+            handleDisplay={handleDisplay}
             handleActive={(row, active) => handleActive(row, active)}
             handlePageChange={(page) => handleChange(page)}
             pageNumber={page}
@@ -227,6 +239,97 @@ const Users = () => {
         initialData={editData}
         isEditing={editModal}
       />
+
+      <Modal
+        open={viewModal}
+        onClose={() => {
+          setViewModal(false);
+          setViewData({});
+        }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box className={styles.view_modal}>
+          <Typography
+            variant="h5"
+            sx={{ p: 1 }}
+            style={{ textAlign: "center" }}
+          >
+            Event Details
+          </Typography>
+
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              flexDirection: "column",
+            }}
+          >
+            <table className={styles.view_table}>
+              <thead className={styles.table_head}>
+                <tr>
+                  <th>Type</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+
+              <tbody className={styles.table_body}>
+                <tr style={{ border: "1px solid black" }}>
+                  <td>Title</td>
+                  <td>{viewData?.title ? viewData?.title : "-"}</td>
+                </tr>
+                <tr style={{ border: "1px solid black" }}>
+                  <td>Description</td>
+                  <td>{viewData?.description ? viewData?.description : "-"}</td>
+                </tr>
+                <tr style={{ border: "1px solid black" }}>
+                  <td>Image</td>
+                  <td>
+                    {viewData?.assets ? (
+                      <div className={styles.image_container}>
+                        <img
+                          src={viewData?.assets}
+                          alt={`Event`}
+                          className={styles.image}
+                        />
+                      </div>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                </tr>
+                <tr style={{ border: "1px solid black" }}>
+                  <td>Author Name</td>
+                  <td>{viewData?.authorName}</td>
+                </tr>
+                <tr style={{ border: "1px solid black" }}>
+                  <td>Read Time</td>
+                  <td>{viewData?.readTime}</td>
+                </tr>
+                <tr style={{ border: "1px solid black" }}>
+                  <td>Publishing Date</td>
+                  <td>{viewData?.createdAt}</td>
+                </tr>
+
+                
+              </tbody>
+            </table>
+            <Button
+              variant="contained"
+              style={{ marginTop: "20px" }}
+              onClick={() => {
+                setViewModal(false);
+                setViewData({});
+              }}
+            >
+              close
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </>
   );
 };

@@ -33,25 +33,7 @@ const Events = () => {
   const debouncedSearch = useDebouncedValue(search, 2000);
 
   const fetchEvents = async (searchValue) => {
-    await get(
-      `/admin/access-management/events?search=${searchValue}&page=${page}&limit=${20}`
-    )
-      .then((res) => {
-        console.log("res", res?.data);
-        setEvents(
-          res?.data.map((item) => ({
-            ...item,
-            action: { edit: true, delete: true },
-          }))
-        );
-        setPageCount(res?.totalPage);
-        setMessage(res?.message);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("err", err);
-        setLoading(true);
-      });
+    
   };
 
   useEffect(() => {

@@ -55,6 +55,12 @@ export const blogContentTableColumns = [
     type: "date",
   },
   {
+    id: "details",
+    label: "Details",
+    minWidth: 70,
+    align: "center",
+  },
+  {
     id: "active",
     label: "Active",
     minWidth: 70,
